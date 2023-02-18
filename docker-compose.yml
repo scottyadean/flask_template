@@ -1,0 +1,22 @@
+version: '3'
+services:
+  web:
+    build: ./web
+    volumes:
+      - './web:/usr/src/app/'
+    ports:
+      - "5000:5000"
+    links:
+      - db
+  
+  db:
+    image : mongo
+    container_name: mongodb
+    environment:
+    - PUID=1000
+    - PGID=1000
+    volumes:
+    - /home/scotty/mongodb/database:/data/db
+    ports:
+    - 27017:27017
+    restart: unless-stopped
